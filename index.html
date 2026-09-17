@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Agent Hub | Rhinajasmyn Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#FF2E93;
+    --pink-deep:#C2126B;
+    --pink-pale:#FFE3F1;
+    --yellow:#FFD23F;
+    --yellow-deep:#E8A400;
+    --purple:#B98CE0;
+    --purple-pale:#F1E6FB;
+    --cream:#FFFBF6;
+    --ink:#3B1930;
+    --ink-soft:#6B4A63;
+    --line:#F0D9EC;
+    --white:#ffffff;
+    --radius:18px;
+    --shadow: 0 10px 30px -12px rgba(194,18,107,0.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:'Baloo 2',sans-serif;
+    margin:0 0 .4em;
+    color:var(--pink-deep);
+    line-height:1.15;
+  }
+  a{color:var(--pink-deep); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  p{margin:0 0 1em; max-width:70ch;}
+  ul{margin:0 0 1em; padding-left:1.2em;}
+  li{margin-bottom:.4em;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- Header / hero ---------- */
+  header.hero{
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,.35), transparent 40%),
+      linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 55%, #8E2E7A 100%);
+    color:var(--white);
+    padding:56px 0 84px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:18px;
+    background:repeating-linear-gradient(-45deg, var(--yellow) 0 22px, var(--purple) 22px 44px);
+  }
+  .brandbar{display:flex; align-items:center; gap:14px; margin-bottom:34px;}
+  .logo-badge{
+    width:56px; height:56px; border-radius:50%;
+    background:var(--yellow);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2',sans-serif; font-weight:800; font-size:26px; color:var(--pink-deep);
+    box-shadow: 0 6px 0 rgba(0,0,0,.12);
+    flex-shrink:0;
+  }
+  .brand-name{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:20px; color:var(--white);}
+  .brand-sub{font-size:13px; color:var(--pink-pale); opacity:.9;}
+  header.hero h1{color:var(--white); font-size:clamp(30px,4.4vw,46px); max-width:20ch;}
+  .eyebrow{
+    display:inline-block; background:var(--purple); color:var(--white);
+    font-family:'Baloo 2',sans-serif; font-weight:600; font-size:14px;
+    padding:6px 16px; border-radius:999px; margin-bottom:16px;
+  }
+  .hero-lede{color:var(--pink-pale); max-width:58ch; font-size:17px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-top:26px;}
+  .btn{
+    display:inline-block; font-family:'Baloo 2',sans-serif; font-weight:600; font-size:16px;
+    padding:13px 26px; border-radius:999px; border:2px solid transparent; cursor:pointer;
+  }
+  .btn-yellow{background:var(--yellow); color:var(--ink); box-shadow:0 5px 0 var(--yellow-deep);}
+  .btn-yellow:hover{transform:translateY(2px); box-shadow:0 3px 0 var(--yellow-deep); text-decoration:none;}
+  .btn-outline{background:transparent; color:var(--white); border-color:rgba(255,255,255,.6);}
+  .btn-outline:hover{background:rgba(255,255,255,.15); text-decoration:none;}
+
+  .agent-card{
+    background:var(--white); color:var(--ink); border-radius:var(--radius);
+    padding:22px 26px; margin-top:-52px; box-shadow:var(--shadow);
+    border:2px solid var(--purple-pale);
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:18px;
+    position:relative; z-index:2;
+  }
+  .agent-card div span.label{display:block; font-size:12px; color:var(--ink-soft); margin-bottom:2px;}
+  .agent-card div span.value{font-weight:700; color:var(--pink-deep);}
+
+  /* ---------- Tabs ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:10;
+    background:var(--white); border-bottom:3px solid var(--purple-pale);
+    overflow-x:auto; white-space:nowrap;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+  }
+  nav.tabs .wrap{display:flex; gap:6px; padding:10px 24px;}
+  nav.tabs button{
+    font-family:'Baloo 2',sans-serif; font-weight:600; font-size:14.5px;
+    background:none; border:none; padding:10px 16px; border-radius:999px;
+    color:var(--ink-soft); cursor:pointer; flex-shrink:0;
+  }
+  nav.tabs button:hover{background:var(--pink-pale); color:var(--pink-deep);}
+  nav.tabs button.active{background:var(--pink); color:var(--white);}
+
+  main{padding:40px 0 90px;}
+  .panel{display:none;}
+  .panel.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+  .panel-head{margin-bottom:28px;}
+  .panel-head .tag{
+    display:inline-block; font-family:'Baloo 2',sans-serif; font-weight:600; font-size:13px;
+    color:var(--pink-deep); background:var(--pink-pale); padding:4px 12px; border-radius:999px; margin-bottom:10px;
+  }
+
+  .card{
+    background:var(--white); border:2px solid var(--line); border-radius:var(--radius);
+    padding:22px 24px; margin-bottom:22px; box-shadow:0 6px 18px -10px rgba(194,18,107,.18);
+  }
+  .card.purple{border-color:var(--purple); background:var(--purple-pale);}
+  .card.yellow-edge{border-left:6px solid var(--yellow);}
+  .card.pink-edge{border-left:6px solid var(--pink);}
+  .card h3{font-size:20px;}
+  .card h4{font-size:16px; color:var(--ink);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media(max-width:760px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+  .step-list{list-style:none; margin:0; padding:0; counter-reset:step;}
+  .step-list li{
+    counter-increment:step; position:relative; padding-left:44px; margin-bottom:14px;
+  }
+  .step-list li::before{
+    content:counter(step); position:absolute; left:0; top:0;
+    width:30px; height:30px; border-radius:50%; background:var(--purple); color:var(--white);
+    font-family:'Baloo 2',sans-serif; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:14px;
+  }
+
+  .pill{
+    display:inline-block; background:var(--yellow); color:var(--ink);
+    font-size:12.5px; font-weight:700; padding:3px 10px; border-radius:999px; margin-bottom:8px;
+  }
+  .pill.purple{background:var(--purple); color:var(--white);}
+  .pill.pink{background:var(--pink); color:var(--white);}
+
+  table.calls{width:100%; border-collapse:collapse; margin-top:6px;}
+  table.calls th, table.calls td{text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); font-size:14.5px;}
+  table.calls th{color:var(--pink-deep); font-family:'Baloo 2',sans-serif;}
+
+  details.script{
+    background:var(--white); border:2px solid var(--purple); border-radius:var(--radius);
+    margin-bottom:18px; overflow:hidden;
+  }
+  details.script summary{
+    list-style:none; cursor:pointer; padding:18px 22px; font-family:'Baloo 2',sans-serif;
+    font-weight:700; font-size:18px; color:var(--pink-deep); background:var(--purple-pale);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  details.script summary::-webkit-details-marker{display:none;}
+  details.script summary::after{content:"+"; font-size:22px; color:var(--pink);}
+  details.script[open] summary::after{content:"–";}
+  details.script .body{padding:22px;}
+
+  details.sub{border:1px solid var(--line); border-radius:12px; margin-bottom:12px; background:var(--cream);}
+  details.sub summary{cursor:pointer; padding:12px 16px; font-weight:700; color:var(--ink);}
+  details.sub .inner{padding:0 16px 16px;}
+
+  .phrasebank{background:var(--pink-pale); border-radius:12px; padding:14px 18px; margin:14px 0;}
+  .phrasebank li{font-style:italic;}
+
+  .path-card{
+    border:2px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:14px;
+  }
+  .path-card ol{counter-reset:carrier; list-style:none; padding-left:0; margin-top:10px;}
+  .path-card ol li{counter-increment:carrier; padding-left:32px; position:relative; margin-bottom:8px;}
+  .path-card ol li::before{
+    content:counter(carrier); position:absolute; left:0; top:0;
+    width:22px; height:22px; border-radius:6px; background:var(--yellow); color:var(--ink);
+    font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center;
+  }
+
+  .leader-card{display:flex; gap:20px; align-items:center; flex-wrap:wrap;}
+  .leader-photo{
+    width:84px; height:84px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,var(--pink),var(--purple));
+    color:var(--white); font-family:'Baloo 2',sans-serif; font-weight:700; font-size:30px;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  footer{
+    background:var(--ink); color:var(--pink-pale); text-align:center; padding:26px 20px; font-size:13.5px;
+  }
+  footer a{color:var(--yellow);}
+
+  .value-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .value-item{background:var(--purple-pale); border-radius:12px; padding:14px 16px; font-weight:600; color:var(--ink);}
+
+  .team-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px;}
+  .team-item{text-align:center;}
+  .team-avatar{
+    width:56px; height:56px; margin:0 auto 8px; border-radius:50%;
+    background:var(--pink); color:var(--white); font-family:'Baloo 2',sans-serif; font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .team-item.me .team-avatar{background:var(--yellow-deep); color:var(--white); box-shadow:0 0 0 3px var(--yellow);}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brandbar">
+      <div class="logo-badge">R</div>
+      <div>
+        <div class="brand-name">Rhinajasmyn Agency</div>
+        <div class="brand-sub">New Agent Hub · part of the Schnitzer Agency / Symmetry Financial Group</div>
+      </div>
+    </div>
+    <span class="eyebrow">Welcome to the team</span>
+    <h1>Everything you need from getting started to winning fast.</h1>
+    <p class="hero-lede">This hub pulls together the links, calls, and step-by-step roadmap you'll use as a new agent — so you always know what to do next. Bookmark this page, you'll come back to it often.</p>
+    <div class="hero-actions">
+      <a class="btn btn-yellow" href="https://calendly.com/faithshieldinsurance" target="_blank" rel="noopener">Book with Rhina →</a>
+      <a class="btn btn-outline" href="#starthere">Start Here</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="agent-card">
+    <div><span class="label">Your agent</span><span class="value">Rhina Jasmyn Delgado</span></div>
+    <div><span class="label">FL license</span><span class="value">G355268</span></div>
+    <div><span class="label">NPN</span><span class="value">3993466</span></div>
+    <div><span class="label">Email</span><span class="value">rhinajasmyn@gmail.com</span></div>
+    <div><span class="label">Phone</span><span class="value">(786) 385-7888</span></div>
+  </div>
+</div>
+
+<nav class="tabs">
+  <div class="wrap" id="tabnav">
+    <button data-tab="starthere" class="active">Start Here</button>
+    <button data-tab="scripts">Scripts &amp; Dialing</button>
+    <button data-tab="sales">Get Better at Sales</button>
+    <button data-tab="underwriting">Underwriting</button>
+    <button data-tab="recruiting">Recruiting</button>
+    <button data-tab="licensed">Get Licensed</button>
+    <button data-tab="ready">Get Ready While Waiting on License</button>
+    <button data-tab="faststart">Fast Start &amp; Carrier Contracts</button>
+    <button data-tab="grow">Let's Grow</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ================= START HERE ================= -->
+  <section id="starthere" class="panel active">
+    <div class="panel-head"><span class="tag">Day 1</span><h2>What to do first</h2><p>Work through these in order. This is a guide, not a saved record — nothing here auto-checks itself.</p></div>
+
+    <div class="card yellow-edge">
+      <span class="pill">Your leader</span>
+      <div class="leader-card">
+        <div class="leader-photo">R</div>
+        <div>
+          <h3>Rhina Delgado</h3>
+          <p style="margin:0">Agency Owner, Rhinajasmyn Agency — part of the Schnitzer Agency / Symmetry Financial Group leadership team. Reach out any time you're stuck; no question is too small in your first few weeks.</p>
+          <p style="margin-top:8px"><a href="mailto:rhinajasmyn@gmail.com">Email Rhina →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card pink-edge">
+      <span class="pill pink">Book your Game Plan</span>
+      <h3>Ready when you are</h3>
+      <p>Once you've completed the prerequisites (see the <strong>Fast Start &amp; Carrier Contracts</strong> tab), schedule your Game Plan call directly with Rhina. Not part of the Rhinajasmyn Agency? Confirm with the person who hired you instead.</p>
+      <a class="btn btn-yellow" href="https://calendly.com/faithshieldinsurance" target="_blank" rel="noopener">Book with Rhina →</a>
+    </div>
+
+    <div class="card">
+      <span class="pill purple">Calendar</span>
+      <h3>Calls to join</h3>
+      <p>Add these to your calendar. Connect with your upline about where to watch recordings if you can't join live.</p>
+      <table class="calls">
+        <tr><th>Call</th><th>When</th><th>Details</th></tr>
+        <tr><td>Schnitzer Master Agency Huddle</td><td>Mondays, 12pm ET</td><td>Zoom Meeting ID: 8270-625-7389</td></tr>
+        <tr><td>Accountability Group</td><td>Mon–Fri, 9am ET</td><td>Zoom Meeting ID: 8108-719-2515 · Passcode: NINJA</td></tr>
+        <tr><td>Symmetry National Call</td><td>Wednesdays, 12:30pm ET</td><td>Registration required — posted in Slack weekly · <a href="https://events.zoom.us/ev/AnNN_A7tolnusX3KjkvOKpNVN1cNyL9XT_OdaJb-QcilQc-ek56O~AjM-joy4vXnoKaHI4-cQ1CQF3p7yF5yHCTpnMU16URVKTSaf8ilPPNTN6Q" target="_blank" rel="noopener">Register →</a></td></tr>
+        <tr><td>New Agent Activation</td><td>Wednesdays, 6pm ET</td><td>In the M.A.C.C. Room</td></tr>
+        <tr><td>Top Producer Call</td><td>Tuesdays, 1pm ET</td><td>In the M.A.C.C. Room</td></tr>
+        <tr><td>Be A Better Builder</td><td>Thursdays, 9am CT / 10am ET</td><td>In the M.A.C.C. Room</td></tr>
+      </table>
+      <p style="margin-top:14px">Add every call on the Schnitzer Master Agency calendar to your own Google Calendar with <a href="https://calendar.google.com/calendar/u/0/r?cid=MDNiNDVlYmI3ZWMyMTYyOWI1NmZkNTUzZWY5ZDY0Zjc5ZDRmY2FhMzc1MjEwODgxM2E5MzMyYTkzYzc5ZDRhZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener">one click here</a>.</p>
+    </div>
+
+    <div class="card purple">
+      <span class="pill purple">Virtual office</span>
+      <h3>The M.A.C.C. Room — Massive Action, Constant Correction</h3>
+      <p>Our virtual office is accessible 24/7 via Zoom. Join to listen to other agents dialing leads and running appointments live — unmute or drop questions in chat any time. This link is also posted daily in Slack.</p>
+      <a class="btn btn-yellow" href="https://us02web.zoom.us/j/84536103772?pwd=ccneAyVfOtOaKcbbmeX8iPfSKUVrug.1" target="_blank" rel="noopener">Join the M.A.C.C. Room →</a>
+      <p style="margin-top:10px; font-size:14px">Passcode: <em>grit</em></p>
+    </div>
+  </section>
+
+  <!-- ================= SCRIPTS & DIALING ================= -->
+  <section id="scripts" class="panel">
+    <div class="panel-head"><span class="tag">Get producing fast</span><h2>Your two scripts, back to back</h2><p>This is how you actually write business — learn these two scripts first. Use the B.E.S.T. System to get the appointment booked, then the Mortgage Protection script to run it. Not licensed yet? You can still learn these now — see the <strong>Get Licensed</strong> and <strong>Get Ready</strong> tabs for what has to happen before your first appointment.</p></div>
+
+    <div class="card">
+      <p><a href="https://www.loom.com/share/4729cf35dad94a8782ba4ee16b4b3256" target="_blank" rel="noopener">Handling objections — watch a walkthrough of common objections on Loom →</a></p>
+    </div>
+
+    <details class="script" open>
+      <summary>Step 1 · B.E.S.T. System Script — Setting the Appointment</summary>
+      <div class="body">
+        <p>Use this on the initial call from a lead request — the goal is to book the appointment, not to give options over the phone.</p>
+
+        <div class="phrasebank">
+          <strong>Power phrases for the phone</strong>
+          <p style="margin:8px 0 4px"><strong>We NEVER email options.</strong> The goal of the initial call is to book an appointment — options get shared live, during the appointment.</p>
+          <ul>
+            <li>"That's exactly why I am calling."</li>
+            <li>"Here's what we're going to do."</li>
+            <li>"Let's do this…"</li>
+            <li>"I can try to squeeze you in at (time)."</li>
+            <li>"Grab a pen and let me know when you are ready."</li>
+          </ul>
+        </div>
+
+        <details class="sub"><summary>1. Be Busy</summary><div class="inner">
+          <p>Pick up the phone. It's a numbers game — the more dials you make, the more appointments you set and the more families you help. Most successful full-time agents make 500+ dials per week, or dial until they have 20+ appointments to submit $5,000+ APV weekly.</p>
+        </div></details>
+
+        <details class="sub"><summary>2. Establish the reason you're calling</summary><div class="inner">
+          <p>You're calling because the client sent in a request asking for your help — now it's your turn to help them get the coverage they deserve.</p>
+          <p>"Hey, Marie." <em>(wait for a response)</em><br>
+          "Hey, this is <em>your name</em>. I'm calling about your home over there at <em>address</em>." <em>(pause, wait for a response)</em><br>
+          "I was getting back to you about the request for Mortgage Protection coverage that is designed to pay your mortgage in the event of a death or disability. I just need to quickly verify some of the information you provided so we can get those options out to you."</p>
+          <p>Start immediately filling out a client qualification form.</p>
+        </div></details>
+
+        <details class="sub"><summary>3. Lead qualification questions</summary><div class="inner">
+          <ul>
+            <li>"I have your age here as ___. Is that correct?"</li>
+            <li>"Have you used any nicotine or tobacco in the last 12 months?"</li>
+            <li>"In regards to health, anything like heart attack, cancer, or stroke in the last 10–15 years? Okay, anything more minor like diabetes, high cholesterol, high blood pressure, anxiety, depression? And any medicines the doctor has you on?"</li>
+          </ul>
+          <p>Great follow-ups: "How long ago was that?" · "Are you still getting treatment?" · "How many medicines for that?" · "Any insulin for your diabetes?" — curiosity helps with underwriting.</p>
+          <ul>
+            <li>"What's your height and weight?"</li>
+            <li>"What do you do for work — anything dangerous, like a stunt man or rodeo clown?" (get a laugh) "What's your work schedule look like?"</li>
+            <li>"The amount of the mortgage to cover is <em>loan amount</em> — correct? What's the monthly payment? 15-year or 30-year?"</li>
+            <li>"Is it just you in the house, or any partners, spouse, or kids?"</li>
+          </ul>
+          <p>"Most importantly, when you sent in the form, were you looking to make sure spouse, kids, or partner wouldn't be immediately hit with the mortgage when you pass? Or what had you been looking into?" <em>(repeat back what you hear)</em></p>
+        </div></details>
+
+        <details class="sub"><summary>4. Transition &amp; book the appointment</summary><div class="inner">
+          <p>"Okay, that makes a lot of sense. I'm going to do some homework for you and shop around with several of our top-rated carriers. Once I get the best options narrowed down, you and I will connect for a few minutes to review them with you and your spouse or partner."</p>
+          <ul>
+            <li>"Does after 5pm or before 5pm typically work best for you?"</li>
+            <li>"Today I have these two options open, or tomorrow these two — which works best?" <em>(wait)</em></li>
+            <li>"Are you positive that time works outside of an emergency?"</li>
+            <li>"Let me put this in my system — what time did we say again? Perfect."</li>
+          </ul>
+        </div></details>
+
+        <details class="sub"><summary>5. Confirm &amp; close the call</summary><div class="inner">
+          <p>"Can I ask you a favor?" <em>(wait)</em><br>
+          "My assistant is going to send you a confirmation text about our appointment. My calendar runs strict and only keeps confirmed appointments — I've had a few families upset because they didn't confirm and got removed. So whenever you get that text, would you do me the favor and respond YES? She'll text again a few hours before too — make sure you respond to that one too. Is that okay?"</p>
+          <p>Get them to confirm they'll keep you updated. "I look forward to connecting with you! Have a great rest of your day!"</p>
+        </div></details>
+      </div>
+    </details>
+
+    <details class="script">
+      <summary>Step 2 · Mortgage Protection Appointment Script — Running the Appointment</summary>
+      <div class="body">
+        <p>Walk through this in order on every appointment — introduction, fact-finding, uncovering the "why," presenting options, and closing the application.</p>
+
+        <details class="sub"><summary>1. Introduction &amp; how it works</summary><div class="inner">
+          <p>"Just so you know how this call will go, I'm what they call a field underwriter and broker. I sit down with about a couple dozen families a week to figure out whether mortgage protection is a necessity or a luxury. Legally we can't over-insure you, and ethically we don't want to under-insure you. My job is to build a case for suitability so we can get you approved <strong>today</strong>."</p>
+          <p>I'll ask some basic questions about your health, finances, and mortgage. Once we go through that, it usually becomes obvious whether this is something you need. We represent over 30 A-rated companies — names you've probably heard, like Mutual of Omaha, Fidelity, and Foresters.</p>
+          <p><strong>Why families choose mortgage protection:</strong> families already have buckets of assets — stocks, 401(k)s, insurance through work — and don't want that bucket to go to a mortgage company when they pass, or be affected by taxes. That's where mortgage protection comes in.</p>
+        </div></details>
+
+        <details class="sub"><summary>2. Verify mortgage &amp; budget</summary><div class="inner">
+          <ul>
+            <li>Verify the mortgage amount, monthly payment, refinance vs. new purchase, and how long they plan to stay</li>
+            <li>Total household income vs. monthly mortgage payment (back-of-the-napkin estimate)</li>
+            <li>Write income per person and type of income on the page — writing it out together builds the "why"</li>
+            <li>Ask about car notes, insurance, subscriptions, day care, phone, utilities, food, fun money, debt</li>
+            <li>Any 401k, savings, or life insurance already being paid into? Name each asset and its purpose — do they want to use it to pay the mortgage? (No.)</li>
+          </ul>
+          <p>"So at the end of each month you have left over ____ — is that right, or is my math off?" Get them to agree to an amount; this overcomes "let me think about it" later.</p>
+        </div></details>
+
+        <details class="sub"><summary>3. Verify health info</summary><div class="inner">
+          <p>Confirm height, weight, medications, health history, nicotine/tobacco use. "Anything you tell me is just to help me best place you with coverage so we can get you approved <strong>today</strong>."</p>
+          <ul>
+            <li>What medications has the doctor prescribed?</li>
+            <li>When was the last time you were hospitalized?</li>
+            <li>Any other health situations from the past 15 years?</li>
+          </ul>
+          <p>Nothing is "serious," even if it is — keep them comfortable sharing. Be curious and assumptive.</p>
+        </div></details>
+
+        <details class="sub"><summary>4. Close the gap — assumption questions</summary><div class="inner">
+          <p><strong>Under 50 (full/partial payoff):</strong> "I'm assuming you want to make sure your spouse and kids don't have to lose the home or move in with family if you passed away or couldn't make payments — or am I misunderstanding?"</p>
+          <p><strong>60+, spouse is beneficiary:</strong> "I'm assuming you want to make sure we don't lose the home and equity or go into foreclosure — or am I misunderstanding?"</p>
+          <p><strong>60+, kids are beneficiary:</strong> "I'm assuming you want to make sure your kids don't get burdened by the mortgage and end up losing the home."</p>
+          <p>50–60 year olds: go by health. Healthy → full/partial payoff. Unhealthy → critical period / equity protection.</p>
+          <p><strong>Digging in:</strong> "If tomorrow your best friend ___ didn't come home, what's the current game plan?" Who's affected, how long could they survive, would they sell, could they carry the mortgage on one income? For kids-as-beneficiary: would they take on the mortgage plus their own expenses, how long do homes nearby take to sell, would they want to make that decision while grieving?</p>
+        </div></details>
+
+        <details class="sub"><summary>5. Transition to options</summary><div class="inner">
+          <p><strong>Ages 18–40:</strong> usually first home, biggest asset, still building savings — often protect the full payoff. Term or IUL for the mortgage duration.</p>
+          <p><strong>Ages 40–60:</strong> more equity and possibly two incomes — often protect part of it, giving the family options to reduce and stay, or sell with more equity.</p>
+          <p><strong>Ages 60+:</strong> usually fixed income — critical period / equity protection often makes more sense than a full payoff, giving breathing room to decide.</p>
+          <p>"Which of those three sounds most like your situation — and why did that one stick out?" Then: have them grab a pen, options are coming.</p>
+        </div></details>
+
+        <details class="sub"><summary>6. Present options</summary><div class="inner">
+          <p><strong>Full payoff:</strong> Option One — full payoff for X years at ___/mo. Option Two — partial ("his and hers" for couples), roughly half the mortgage. Option Three — half the mortgage combined with an accidental plan that pays off the full mortgage if death is accidental.</p>
+          <p><strong>Partial payoff:</strong> Option One — 75% of balance. Option Two — 50% of balance. Option Three — same combined term + accidental structure.</p>
+          <p><strong>Critical / equity protection:</strong> level premiums shown as 12, 9, or 6 months of coverage (months × monthly mortgage payment = plan amount). Option One — most months of coverage. Option Two — shorter period, lower monthly. Option Three — a third monthly amount.</p>
+          <p>"Which one are you most gravitating toward?" <strong>Then be quiet.</strong> Silence is where the sale is made.</p>
+        </div></details>
+
+        <details class="sub"><summary>7. Close &amp; begin the application</summary><div class="inner">
+          <p>"Let's begin that application and get you approved. The carrier we're applying with is ___. You'll get a policy packet in the mail we'll review together in two weeks."</p>
+          <p>Begin the application, verify everything, and enter the Social Security number last: "This carrier isn't going to come do blood work — they determine your health using your Social Security number, connected to your medical record. It also confirms the right person passed so they don't pay the wrong beneficiary. Go ahead with that 9-digit social."</p>
+        </div></details>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= GET BETTER AT SALES ================= -->
+  <section id="sales" class="panel">
+    <div class="panel-head"><span class="tag">Level up</span><h2>Get better at sales</h2></div>
+
+    <div class="card pink-edge">
+      <span class="pill pink">Rhina's pick</span>
+      <h3>Sharpen your sales skills</h3>
+      <p>A video recommended for sharpening your sales skills.</p>
+      <a class="btn btn-yellow" href="https://youtu.be/mw_9sWjFFKo?si=wjqhoYyjB0OVs1zH" target="_blank" rel="noopener">Watch the video →</a>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Record your appointments — or run them live</h3>
+        <p>Record yourself running an appointment (or hop in the M.A.C.C. Room / a breakout and run it live) so your mentor can listen back and help you sharpen it.</p>
+      </div>
+      <div class="card">
+        <h3>Track your numbers</h3>
+        <p>Your activity is the biggest driver of improvement — track it daily.</p>
+        <p><strong>Best practice:</strong> 150 dials, 5 appointments booked, or a sale — hit any one and it was an awesome day.</p>
+        <p><a href="https://hq.quility.com/cms/document/view/65002" target="_blank" rel="noopener">Activity Tracker →</a> &nbsp; <a href="https://docs.google.com/spreadsheets/d/16Zzt91f_D3RUEoxXetNZeTFe6dfxvUPr9IocZ7A5kG4/edit?usp=sharing" target="_blank" rel="noopener">Counting What Counts →</a></p>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <span class="pill purple">Practice live</span>
+      <h3>Sign up for live dials</h3>
+      <p>Want to hear scripts in action or get your own reps in with support nearby? Hop into the M.A.C.C. Room or a breakout room and join the Accountability call.</p>
+      <p><a href="https://us02web.zoom.us/j/84536103772?pwd=ccneAyVfOtOaKcbbmeX8iPfSKUVrug.1" target="_blank" rel="noopener">Join the M.A.C.C. Room →</a></p>
+      <p style="margin-top:6px">Accountability Group — Mon–Fri, 9am ET. Zoom Meeting ID: 8108-719-2515 · Passcode: NINJA</p>
+    </div>
+  </section>
+
+  <!-- ================= UNDERWRITING ================= -->
+  <section id="underwriting" class="panel">
+    <div class="panel-head"><span class="tag">Case prep</span><h2>Underwriting checklist</h2><p>Work through these in order every time you're prepping a case.</p></div>
+
+    <div class="card yellow-edge">
+      <span class="pill">Step 1</span>
+      <h3>Fill in HQ Navigator</h3>
+      <p>Enter the client's health information into HQ Navigator first — height, weight, medications, health history, and nicotine/tobacco use. This is your starting point for every case.</p>
+    </div>
+
+    <div class="card yellow-edge">
+      <span class="pill">Step 2</span>
+      <h3>Check against the cheat sheet</h3>
+      <p>Once Navigator gives you a read, cross-check it against the underwriting cheat sheet before you present options — that's what confirms which carrier and plan actually fits.</p>
+      <a href="https://docs.google.com/spreadsheets/d/1fbx_Mb4mk7vAD9WpxRjcBzipQ_-ccBCOEbZZxNcrlXU/edit?gid=0#gid=0" target="_blank" rel="noopener">Open the cheat sheet →</a>
+    </div>
+
+    <div class="card">
+      <span class="pill">Step 3</span>
+      <h3>Which product to use</h3>
+      <p>Once you know their health picture, follow the path down to the right product category — carriers are numbered in the order to try them.</p>
+
+      <div class="path-card">
+        <h4>Ages 18–55 · Healthy → Temporary (term insurance)</h4>
+        <p>Living benefits included: critical illness, chronic illness, and terminal illness accelerated-benefit riders. Exception: SBLI only includes chronic and terminal illness (no critical illness rider).</p>
+        <ol>
+          <li>Banner — application in Navigator</li>
+          <li>SBLI — application in Navigator</li>
+          <li>Americo — Term 125</li>
+          <li>Mutual of Omaha — Term Life Express</li>
+          <li>Foresters — Strong Foundation (accelerated, not instant issue)</li>
+        </ol>
+      </div>
+
+      <div class="path-card">
+        <h4>Ages 18–65 · Healthy → Permanent (IULs)</h4>
+        <p>Not whole life — premium is flexible, not locked in. Also includes living benefits. Confused on term vs. IUL? Ask before you present.</p>
+        <ol>
+          <li>Quantum IUL — application in Navigator</li>
+          <li>Mutual of Omaha — Express Issue IUL</li>
+          <li>Foresters — SmartSolve IUL</li>
+          <li>Transamerica — IUL Express</li>
+        </ol>
+      </div>
+
+      <div class="path-card">
+        <h4>Ages 60+ or unhealthy → Critical period (final expense)</h4>
+        <p>Healthy older individuals go here too. Whole life product — premium and death benefit locked in for life. No living benefits.</p>
+        <ol>
+          <li>American Amicable — QSFP, application in Navigator, for healthy older individuals</li>
+          <li>UHL — QSFU, application in Navigator, 3 rate classes</li>
+          <li>Transamerica — FE Express</li>
+          <li>Americo — Eagle Select</li>
+          <li>Mutual of Omaha — Living Promise</li>
+          <li>Corebridge — Guaranteed Issue</li>
+        </ol>
+      </div>
+      <p style="font-size:14px; color:var(--ink-soft)">These lists are a starting point, not the only factors to weigh — always confirm against the cheat sheet and SFG Quotes before presenting options.</p>
+    </div>
+
+    <div class="card purple">
+      <h3>SFG Quotes — quoting &amp; case prep tools</h3>
+      <p>Quoting tools, underwriting cheat sheets, build charts, and lookback guides for our carriers.</p>
+      <a class="btn btn-yellow" href="https://sfgquotes.com/" target="_blank" rel="noopener">Open SFG Quotes →</a>
+    </div>
+  </section>
+
+  <!-- ================= RECRUITING ================= -->
+  <section id="recruiting" class="panel">
+    <div class="panel-head"><span class="tag">Building</span><h2>Build your team</h2><p>You don't need to be an expert at this business before you start building. Leveraging your resources — your upline/mentor, Slack, this hub, Fast Start — means the system works for you.</p></div>
+
+    <div class="card">
+      <h3>Start now</h3>
+      <p>If you're planning to build a team, start today. Connect with your mentor on building strategies and start talking to people about this opportunity — you don't have to wait until you feel ready. See Levels of Leadership on the <strong>Let's Grow</strong> tab for what each stage requires.</p>
+    </div>
+
+    <div class="panel-head" style="margin-top:8px"><span class="tag">Building</span><h3>Recruiting steps</h3><p>Work through these in order with every prospective agent.</p></div>
+
+    <ol class="step-list">
+      <li><strong>Send the intro video.</strong> Send the prospective agent this 3-minute video so they can learn more about Symmetry. <a href="https://youtu.be/Cav-evhiG9o" target="_blank" rel="noopener">Watch (3 min) →</a></li>
+      <li><strong>Have a conversation.</strong> Share your own experience. Make sure they know: we hire both part-time and full-time; it's 100% commission sales; and what training/support looks like. Want to loop Rhina in? Schedule a 3-way call (you, your recruit, and Rhina): <a href="https://calendly.com/faithshieldinsurance" target="_blank" rel="noopener">Book a 3-way call →</a></li>
+      <li><strong>Send the company overview.</strong> Send the prospective agent Scott's full company overview recording (35 minutes). <a href="https://youtu.be/n_INHJMaku0?si=iUzHQwt8O32yqBQK" target="_blank" rel="noopener">Watch (35 min) →</a></li>
+      <li><strong>Set up the Meet &amp; Greet Call with Scott.</strong> If they're ready to learn more, we'll invite them to a Meet &amp; Greet Call with Scott. To send the invite, text Rhina their first and last name, email, phone number, resident state, and licensed/unlicensed status. <a href="sms:7863857888">💬 Text Rhina (786-385-7888)</a></li>
+      <li><strong>Invite them to join the team.</strong> After the Meet &amp; Greet call with Scott: licensed agents receive this hub and a link to the Symmetry employment application; unlicensed agents receive a link to pre-licensing.</li>
+    </ol>
+  </section>
+
+  <!-- ================= GET LICENSED ================= -->
+  <section id="licensed" class="panel">
+    <div class="panel-head"><span class="tag">Roadmap</span><h2>Road map to becoming an insurance agent</h2></div>
+
+    <div class="card">
+      <ol class="step-list" style="columns:2; column-gap:32px;">
+        <li>Prelicensing course</li>
+        <li>Fingerprints</li>
+        <li>State exam</li>
+        <li>License application</li>
+        <li>AML &amp; E&amp;O</li>
+        <li>MP Sales Mastery</li>
+        <li>Get license</li>
+        <li>Onboarding application</li>
+        <li>Quility HQ</li>
+        <li>SureLC</li>
+        <li>Fast Start</li>
+        <li>First App! 🎉</li>
+      </ol>
+    </div>
+
+    <div class="card yellow-edge">
+      <span class="pill">Step 1</span>
+      <h3>Pre-licensing course &amp; state requirements</h3>
+      <p>You'll receive a link to sign up for your team's discounted course by email — don't proceed without it or you'll be charged full price. If you don't receive it, reach out to the person who hired you.</p>
+      <p><a href="https://docs.google.com/document/d/1BeHtKxSJe9J-nj4FrTc4mOvupTatkYq1uDHgu7P22EE/edit?usp=sharing" target="_blank" rel="noopener">JustInsurance pre-licensing instructions →</a></p>
+      <p><a href="https://collectivelifelicensing.com/prelicensing/" target="_blank" rel="noopener">Step 2: state requirements — exam, fingerprinting/background check, license application →</a></p>
+      <p style="font-size:14px; color:var(--ink-soft)">Successful agents complete their course, prep review, and exam simulator within 10–14 days.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="pill purple">After you pass your exam</span>
+        <h3>Anti-Money Laundering (AML)</h3>
+        <p>Required before onboarding with Symmetry. WebCE's AML training is recommended — accepted by all carriers. Small fee applies. Select "Company-Mandated Training" → "AML Training" → "Anti-Money Laundering for the Insurance Industry." Save your certificate.</p>
+        <a href="https://www.webce.com/catalog/courses/aml-training/aml-training/aml-training" target="_blank" rel="noopener">Go to WebCE →</a>
+      </div>
+      <div class="card">
+        <span class="pill purple">After you pass your exam</span>
+        <h3>Errors &amp; Omissions (E&amp;O)</h3>
+        <p>E&amp;O is for insurance producers what malpractice insurance is for doctors — required by most carriers. Minimum $1M in coverage required. You may need to wait for your license to be active before purchasing. Save your certificate.</p>
+        <a href="https://www.calsurance.com/sfglife" target="_blank" rel="noopener">Purchase E&amp;O →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GET READY WHILE WAITING ================= -->
+  <section id="ready" class="panel">
+    <div class="panel-head"><span class="tag">While you wait for your license</span><h2>Get ready while waiting on your license</h2></div>
+
+    <div class="card pink-edge">
+      <h3>Mortgage Protection Sales Mastery — $25</h3>
+      <p>By Chris Leake (Rookie Producer of the Year 2020, Top 5 Producer 2021, $1M+ produced in under 3 years). Over 4,300 Symmetry agents enrolled. Learn to set appointments, present options, and close mortgage protection sales — including the real phone scripts you'll use on calls.</p>
+      <a class="btn btn-yellow" href="https://training.theleakeagency.com/?affcode=1444119_hspct2du" target="_blank" rel="noopener">Enroll in the course →</a>
+      <p style="margin-top:10px; font-size:14px">Complete Mods 1–3 for now (Introduction, Mortgage Protection Quick Start, Personal Development). This hub will tell you when to continue with Mods 4–9 &amp; 13.</p>
+    </div>
+
+    <div class="card">
+      <span class="pill">The most important thing</span>
+      <h3>Personal development</h3>
+      <p>1% improvement each day is all it takes. We're a personal development business that just happens to sell life insurance. Read 30 minutes a day while you learn the business.</p>
+      <p><a href="https://www.amazon.com/dp/B0G7SS3GXZ?lv=shuf&channelId=500&plpRedirect=mhFallback" target="_blank" rel="noopener">Selling Security by Jim Larsen — start here →</a> &nbsp; <a href="https://docs.google.com/document/d/12UvD3cJI1VLlqik1XPNNZAdWAbG6qLLrpOM9RJQ1hZ0/edit?tab=t.0" target="_blank" rel="noopener">More recommended reading →</a></p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="pill purple">Set up your workspace</span>
+        <h3>Virtual business card — $10</h3>
+        <p>Take a headshot (professional or DIY, good lighting, solid background). Send $10 via Venmo to <strong>@GKrzemien2</strong>, then DM Gabriele Krzemien on Slack with your full name, email, phone number, NPN, and headshot.</p>
+        <a href="https://nipr.com/help/look-up-your-npn" target="_blank" rel="noopener">Look up your NPN →</a>
+      </div>
+      <div class="card">
+        <span class="pill purple">Set up your workspace</span>
+        <h3>Home office setup</h3>
+        <p>Find a quiet space for dials and appointments. Set up Zoom and Calendly for scheduling.</p>
+        <a href="https://calendly.com/help/calendly-zoom" target="_blank" rel="noopener">Zoom + Calendly setup video →</a>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <span class="pill purple">Culture</span>
+      <h3>Symmetry's core values</h3>
+      <div class="value-grid">
+        <div class="value-item">Relationships matter, people come first.</div>
+        <div class="value-item">Relentless pursuit of personal growth.</div>
+        <div class="value-item">Open, honest, and productive communication.</div>
+        <div class="value-item">We do the right thing even when no one is looking.</div>
+        <div class="value-item">We work as a true team and strive to be a positive influence.</div>
+        <div class="value-item">We act like owners because we own it.</div>
+        <div class="value-item">Being of service and doing good in the world.</div>
+        <div class="value-item">We have fun and we get stuff done.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAST START & CARRIER CONTRACTS ================= -->
+  <section id="faststart" class="panel">
+    <div class="panel-head"><span class="tag">Onboarding</span><h2>Fast Start &amp; carrier contracts</h2></div>
+
+    <div class="card">
+      <h3>Symmetry onboarding application</h3>
+      <p>Your new email must be set up before your onboarding invite can be sent. Once your NPN and license are active, tell your Operations Manager so they can start your invite. Your invitation will come from <strong>onboarding@quility.com</strong> — don't message that inbox directly, contact your upline instead. Applications are typically reviewed within 48 business hours.</p>
+      <p><a href="https://collectivelifelicensing.com/license-look-up/" target="_blank" rel="noopener">Look up your license status →</a> &nbsp; <a href="https://nipr.com/help/look-up-your-npn" target="_blank" rel="noopener">Look up your NPN →</a> &nbsp; <a href="https://docs.google.com/document/d/1c2Q2ueut0fYD5jzf36MEDtVzPNj7Zs7pDH5Lc50e6Oc/edit?usp=sharing" target="_blank" rel="noopener">Application instructions →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="pill">Stay connected</span>
+      <h3>Slack</h3>
+      <p>Slack is our #1 platform for keeping the whole team connected. Use your first and last name and a clear profile photo. Set "All new messages" notifications for General, News-events, and your agency's channel.</p>
+      <p><a href="https://slack.com/help/articles/360059928654-How-to-use-Slack--your-quick-start-guide" target="_blank" rel="noopener">Slack quick start guide →</a></p>
+      <p style="font-size:14px; color:var(--ink-soft)">Haven't received a Slack invite yet? Check with your upline — and create a new Gmail for the business first, then email your new address to your Operations Manager.</p>
+    </div>
+
+    <div class="card yellow-edge">
+      <h3>Welcome email, Quility HQ &amp; Fast Start</h3>
+      <p>After your onboarding application is approved you'll get a welcome email — watch the orientation video, then log into Quility HQ and complete every step in Fast Start (SureLC, writing your first app, submitting business to Opt, and more).</p>
+      <p><strong>Fast Start Onboarding Call:</strong> Mondays &amp; Fridays, 12pm ET — you only need to attend once. <a href="https://events.zoom.us/ev/AnNN_A7tolnusX3KjkvOKpNVN1cNyL9XT_OdaJb-QcilQc-ek56O~AjM-joy4vXnoKaHI4-cQ1CQF3p7yF5yHCTpnMU16URVKTSaf8ilPPNTN6Q" target="_blank" rel="noopener">Register →</a></p>
+      <p><a href="https://hq.quility.com/summit/the-four-cornerstones" target="_blank" rel="noopener">The Four Cornerstones →</a> &nbsp; <a href="https://hq.quility.com/summit/the-four-keys" target="_blank" rel="noopener">The Four Keys to a Successful Week →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="pill">Carrier contracting</span>
+      <h3>SureLC profile &amp; carrier contracts</h3>
+      <p>You'll get a SureLC activation email the same day as your welcome email (check spam). Your NIPR info syncs in automatically, but it's your responsibility to make sure it's accurate. You'll need your AML and E&amp;O certificates.</p>
+      <p><a href="https://docs.google.com/document/d/1bjAxnR-s7QmHldOWKgL1ITwej9DMvG3s1hzVQwvq038/edit?usp=sharing" target="_blank" rel="noopener">Complete your SureLC profile →</a> &nbsp; <a href="https://docs.google.com/document/d/1XgP0wlxCTZqcNwti8vDc6_59ZJ_GlOydAVY-xhjdLPs/edit?usp=sharing" target="_blank" rel="noopener">Initiate your carrier contracts →</a> &nbsp; <a href="https://support.surancebay.com/hc/en-us/articles/360057048454-Producer-Workflow-How-to-Check-the-Status-of-Contracting-Requests" target="_blank" rel="noopener">Check contract status →</a></p>
+      <p style="font-size:14px; color:var(--ink-soft)">United Home Life (UHL) doesn't use SureLC — look for an email from producerexpress@sircon.com instead.</p>
+    </div>
+
+    <div class="card">
+      <span class="pill purple">Track your progress</span>
+      <h3>Know your numbers</h3>
+      <p><a href="https://hq.quility.com/cms/document/view/65002" target="_blank" rel="noopener">Activity Tracker →</a> &nbsp; <a href="https://docs.google.com/spreadsheets/d/16Zzt91f_D3RUEoxXetNZeTFe6dfxvUPr9IocZ7A5kG4/edit?usp=sharing" target="_blank" rel="noopener">Counting What Counts →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="pill purple">Systems</span>
+      <h3>First app, Opt access &amp; promotions</h3>
+      <p><a href="https://v2.sfgcrm.com/" target="_blank" rel="noopener">Opt! Leads Manager →</a> (every application you write gets submitted here — log in at least every 2 weeks or your account locks)</p>
+      <p><a href="https://hq.quility.com/page/promotion-guidelines-and-bonuses" target="_blank" rel="noopener">Promotion guidelines →</a> &nbsp; <a href="https://hq.quility.com/page/slingshot" target="_blank" rel="noopener">Slingshot promotion →</a> &nbsp; <a href="https://hq.quility.com/page/master-commission-schedule" target="_blank" rel="noopener">Master commission schedule →</a></p>
+      <p style="font-size:14px; color:var(--ink-soft)">Top comp products to know: American Amicable (Home Certainty), Americo (Term 125), Banner (Beyond Term), SBLI (Quility Term / EasyTrak), Mutual of Omaha (Term Life Express), Foresters (Strong Foundation).</p>
+    </div>
+
+    <div class="card pink-edge">
+      <span class="pill pink">Before you dial</span>
+      <h3>Schedule your Game Plan</h3>
+      <p>Prerequisites: Mortgage Protection Sales Mastery Mods 1–9 &amp; 13, and Fast Start steps 1–26 (including submitting your first app).</p>
+      <a class="btn btn-yellow" href="https://calendly.com/faithshieldinsurance" target="_blank" rel="noopener">Book a Game Plan with Rhina →</a>
+    </div>
+
+    <div class="card">
+      <span class="pill">Leads</span>
+      <h3>Lead strategy &amp; first lead order</h3>
+      <p>You'll place your first order in LeadStream after your Game Plan, per Fast Start. Rhinajasmyn Agency lead strategy: buy <strong>$250 total</strong>, split between Mail-In leads (level D and below) and Call-In leads (level D and below), in every state you're licensed in.</p>
+      <p><a href="https://hq.quility.com/page/lead-journey-and-lead-purchase-recommendations" target="_blank" rel="noopener">Lead journey &amp; purchase recs →</a> &nbsp; <a href="https://hq.quility.com/page/leads-ordering-guide-leadstream" target="_blank" rel="noopener">Lead ordering guide →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="pill">Expanding your reach</span>
+      <h3>Non-resident licensing</h3>
+      <p>Being licensed in other states lets you work with clients located there, and earn override commissions on a downline's business. Most carriers aren't available in NY — NY residents need their resident license first, then at least one non-resident license before initiating carrier contracts.</p>
+      <p><a href="https://collectivelifelicensing.com/non-resident-licensing/" target="_blank" rel="noopener">Apply for a non-resident license →</a> &nbsp; <a href="https://docs.google.com/document/d/1tMMk98OF1Cf2NCZGrLOUok6Xyr8Otti8rDik-P6tO14/edit?usp=sharing" target="_blank" rel="noopener">Carrier preappointment email template →</a></p>
+    </div>
+
+    <div class="card yellow-edge">
+      <span class="pill">Ready?</span>
+      <h3>Start dialing</h3>
+      <p>You're ready once you have leads in a licensed state, you've completed Fast Start through at least step 29, and you've finished Mods 1–9 &amp; 13 of the Mortgage Protection course. Aim for 100–150 dials a day and track it on your Activity Tracker. After you set your first appointment, pause and prep — see the <strong>Underwriting</strong> tab.</p>
+    </div>
+  </section>
+
+  <!-- ================= LET'S GROW ================= -->
+  <section id="grow" class="panel">
+    <div class="panel-head"><span class="tag">First sale &amp; beyond</span><h2>Keep going</h2><p>If you've written one, you can write one thousand. Every app you write gets submitted to Opt. The more dials → the more appointments → the more families you help.</p></div>
+
+    <div class="card pink-edge">
+      <span class="pill pink">Rhina's videos</span>
+      <h3>From Rhina</h3>
+      <p>Once your first sale is in, ask Rhina for a recap call and access to her running list of appointment recordings and personal notes on what's working right now.</p>
+      <a class="btn btn-yellow" href="mailto:rhinajasmyn@gmail.com">Email Rhina →</a>
+    </div>
+
+    <div class="card">
+      <span class="pill purple">Training</span>
+      <h3>Mastery Series — 4-part series with Jim Larsen</h3>
+      <p>Master your schedule, the learning curve, your production, and your leadership.</p>
+      <a href="https://youtube.com/playlist?list=PL6gtwgpebf2YeClcbNUrg5wcMsTOLp5yO&si=hDgAPGDglnsz-48j" target="_blank" rel="noopener">Watch the series →</a>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="pill">80–90% contract level</span>
+        <h3>Keep building</h3>
+        <p>Complete Basecamp &amp; Activate in Summit — access via the mountain icon in HQ, same as Fast Start. Start a standing lead order — your mentor can guide type &amp; quantity — and add non-resident licenses to expand.</p>
+        <a href="https://hq.quility.com/page/advanced-markets-resets" target="_blank" rel="noopener">FIF Resets — Advanced Market opportunities →</a>
+      </div>
+      <div class="card">
+        <h3>Find a running buddy</h3>
+        <p>We work for ourselves, but not by ourselves. Look for someone who:</p>
+        <ul>
+          <li>Shares your beliefs and goals</li>
+          <li>Is on the same level as you</li>
+          <li>Can be an accountability partner</li>
+          <li>Pushes you to grow, not just alongside you</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="pill purple">Leadership</span>
+        <h3>Levels of leadership</h3>
+        <p>Separate from the promotion guidelines. Agency Owner is the only leadership level with a contract requirement (105% contract). Whether you're working toward Elite Producer or Managing Partner, the guide outlines what's needed.</p>
+        <a href="https://hq.quility.com/cms/document/view/44534" target="_blank" rel="noopener">Levels of Leadership guide →</a>
+      </div>
+      <div class="card">
+        <span class="pill purple">Benefits</span>
+        <h3>Agent benefits</h3>
+        <p><a href="https://hq.quility.com/page/benefits" target="_blank" rel="noopener">Protect the Protector</a> — health coverage access for independent contractors.<br>
+        <a href="https://hq.quility.com/page/benefits" target="_blank" rel="noopener">MyLife | Life Insurance</a> — qualifying agents can get a life policy on themselves, first-year premiums covered by Symmetry.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="pill">The wider team</span>
+      <h3>Schnitzer Agency leadership</h3>
+      <div class="team-grid">
+        <div class="team-item"><div class="team-avatar">SS</div>Scott Schnitzer<br><span style="font-size:12px; color:var(--ink-soft)">Executive Vice President</span></div>
+        <div class="team-item"><div class="team-avatar">KS</div>Kate Schnitzer<br><span style="font-size:12px; color:var(--ink-soft)">Executive Vice President</span></div>
+        <div class="team-item me"><div class="team-avatar">RD</div>Rhina Delgado<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner, Rhinajasmyn Agency</span></div>
+        <div class="team-item"><div class="team-avatar">SF</div>Sabina Fritsch<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner</span></div>
+        <div class="team-item"><div class="team-avatar">GM</div>Giovanna &amp; Mickey Mitru<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owners</span></div>
+        <div class="team-item"><div class="team-avatar">SH</div>Sarah Hadley<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner</span></div>
+        <div class="team-item"><div class="team-avatar">WS</div>Wilbur Smith<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner</span></div>
+        <div class="team-item"><div class="team-avatar">BG</div>Bobb Grandsard<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner</span></div>
+        <div class="team-item"><div class="team-avatar">JH</div>Joseph Helms<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner</span></div>
+        <div class="team-item"><div class="team-avatar">VD</div>Venus Diaz<br><span style="font-size:12px; color:var(--ink-soft)">Agency Owner</span></div>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <span class="pill purple">Support</span>
+      <h3>Who to ask</h3>
+      <div class="grid-2">
+        <div>
+          <h4>Your Leader</h4>
+          <p>Rhina Delgado<br><a href="mailto:rhinajasmyn@gmail.com">rhinajasmyn@gmail.com</a> · (786) 385-7888</p>
+        </div>
+        <div>
+          <h4>Virtual Business Cards</h4>
+          <p>Gabriele Krzemien (DM on Slack)<br>Venmo: @GKrzemien2</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">New Agent Hub · Rhinajasmyn Agency · Content sourced from the Schnitzer Agency Handbook · Built for internal onboarding use</div>
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('nav.tabs button');
+  const panels = document.querySelectorAll('.panel');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>
